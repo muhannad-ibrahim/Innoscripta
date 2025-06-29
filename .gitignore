@@ -1,0 +1,206 @@
+# ===========================================
+# Laravel Backend
+# ===========================================
+
+# Composer dependencies
+backend/vendor/
+
+# Environment files
+backend/.env
+backend/.env.backup
+backend/.env.production
+
+# Laravel storage and cache
+backend/storage/*.key
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
+
+# Laravel public storage
+backend/public/hot
+backend/public/storage
+
+# Database
+backend/database/database.sqlite
+backend/database/database.sqlite-journal
+
+# Testing
+backend/.phpunit.result.cache
+backend/coverage/
+
+# IDE files
+backend/.vscode/
+backend/.idea/
+backend/*.swp
+backend/*.swo
+backend/*~
+
+# ===========================================
+# React Frontend
+# ===========================================
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Production builds
+frontend/dist/
+frontend/build/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/lerna-debug.log*
+frontend/*.log
+
+# Runtime data
+frontend/pids
+frontend/*.pid
+frontend/*.seed
+frontend/*.pid.lock
+
+# Coverage directory used by tools like istanbul
+frontend/coverage/
+frontend/.nyc_output
+
+# Dependency directories
+frontend/jspm_packages/
+
+# Optional npm cache directory
+frontend/.npm
+
+# Optional eslint cache
+frontend/.eslintcache
+
+# Microbundle cache
+frontend/.rpt2_cache/
+frontend/.rts2_cache_cjs/
+frontend/.rts2_cache_es/
+frontend/.rts2_cache_umd/
+
+# Optional REPL history
+frontend/.node_repl_history
+
+# Output of 'npm pack'
+frontend/*.tgz
+
+# Yarn Integrity file
+frontend/.yarn-integrity
+
+# parcel-bundler cache
+frontend/.cache
+frontend/.parcel-cache
+
+# next.js build output
+frontend/.next
+
+# nuxt.js build output
+frontend/.nuxt
+
+# vuepress build output
+frontend/.vuepress/dist
+
+# Serverless directories
+frontend/.serverless/
+
+# FuseBox cache
+frontend/.fusebox/
+
+# DynamoDB Local files
+frontend/.dynamodb/
+
+# TernJS port file
+frontend/.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+frontend/.vscode-test
+
+# IDE files
+frontend/.vscode/
+frontend/.idea/
+frontend/*.swp
+frontend/*.swo
+frontend/*~
+
+# ===========================================
+# General Project Files
+# ===========================================
+
+# Environment files (root level)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files (root level)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Docker (if used in future)
+docker-compose.override.yml
+.dockerignore
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Log files
+*.log
+logs/
+
+# Cache directories
+.cache/
+cache/
+
+# ===========================================
+# Development Tools
+# ===========================================
+
+# PHPUnit
+.phpunit.result.cache
+
+# Composer
+composer.phar
+
+# Node.js
+.npm
+.yarn-integrity
+
+# Testing
+coverage/
+.nyc_output/
+
+# Linting
+.eslintcache
+.stylelintcache 
