@@ -1,4 +1,4 @@
-# Full-Stack Authentication Application
+# Full-Stack News Aggregator
 
 A complete full-stack application with Laravel backend and React frontend, featuring user authentication and registration.
 
@@ -337,4 +337,36 @@ serve -s dist -l 3000
 
 ## License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). 
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Article Search and Filtering
+
+### Features
+- Search news articles by keyword, source, category, or date
+- Paginated results (10 per page)
+- Filter by source, category, and date
+- Modern UI for searching and browsing articles
+
+### Backend
+- `GET /api/articles` endpoint
+  - Query params: `keyword`, `source`, `category`, `date`, `page`
+  - Example: `/api/articles?keyword=tech&source=BBC&category=Technology&date=2024-06-30&page=2`
+- Eloquent scopes for filtering
+- Seeder and factory for 50+ dummy articles
+
+### Frontend
+- Dashboard page includes:
+  - Search input for keyword
+  - Dropdowns for source and category
+  - Date picker for published date
+  - Paginated article list with centered pagination controls
+  - Loading, empty, and error states
+
+### Usage
+1. **Seed the database** (if not already seeded):
+   ```bash
+   cd backend
+   php artisan migrate --seed
+   ```
+2. **Start backend and frontend servers** as described above.
+3. **Login and navigate to Dashboard** to use the article search and filtering UI. 
