@@ -28,16 +28,28 @@ A complete full-stack application with Laravel backend and React frontend, featu
 InnoscriptaTask/
 ├── backend/                 # Laravel API
 │   ├── app/
+│   │   ├── Console/
+│   │   │   └── Commands/
+│   │   │       └── FetchArticlesCommand.php
 │   │   ├── Http/Controllers/
-│   │   │   └── AuthController.php
+│   │   │   ├── AuthController.php
+│   │   │   └── ArticleController.php
 │   │   ├── Models/
 │   │   │   ├── User.php
-│   │   │   └── UserPreference.php
+│   │   │   ├── UserPreference.php
+│   │   │   └── Article.php
 │   │   └── Providers/
 │   ├── config/
 │   ├── database/
 │   │   ├── database.sqlite
-│   │   └── migrations/
+│   │   ├── factories/
+│   │   │   └── ArticleFactory.php
+│   │   ├── migrations/
+│   │   │   ├── 2025_06_30_110720_create_articles_table.php
+│   │   └── seeders/
+│   │       └── ArticleSeeder.php
+│   ├── routes/
+│   │   └── api.php
 │   └── routes/
 ├── frontend/               # React Application
 │   ├── src/
@@ -369,4 +381,16 @@ This project is open-sourced software licensed under the [MIT license](https://o
    php artisan migrate --seed
    ```
 2. **Start backend and frontend servers** as described above.
-3. **Login and navigate to Dashboard** to use the article search and filtering UI. 
+3. **Login and navigate to Dashboard** to use the article search and filtering UI.
+
+## Article Scraping and Storage
+
+- The backend includes an Artisan command to fetch and store news articles from external APIs (NewsAPI, Guardian, NYT, etc.).
+- The command normalizes, deduplicates, and stores articles in the local database.
+- **Scheduling:**
+  - The command is scheduled to run automatically every 10 minutes using Laravel's scheduler.
+  - **Note:** If you want this to work, you still need to have the Laravel scheduler running in the background (via `php artisan schedule:work` or a cron job).
+- You can also run the command manually:
+  ```bash
+  php artisan articles:fetch
+  ``` 
