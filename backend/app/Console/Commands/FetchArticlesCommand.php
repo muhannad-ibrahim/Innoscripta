@@ -82,12 +82,23 @@ class FetchArticlesCommand extends Command
         foreach ($data['articles'] as $item) {
             $articles[] = [
                 'title' => $item['title'] ?? '',
-                'content' => $item['content'] ?? ($item['description'] ?? ''),
+                'content' => $this->cleanContent($item['content'] ?? ($item['description'] ?? '')),
                 'source' => $item['source']['name'] ?? 'NewsAPI',
                 'category' => 'General',
                 'published_at' => isset($item['publishedAt']) ? Carbon::parse($item['publishedAt'])->format('Y-m-d H:i:s') : now(),            ];
         }
         return $articles;
+    }
+
+    private function cleanContent($content, $maxLength = 1000)
+    {
+        // Remove HTML tags
+        $cleanContent = strip_tags($content);
+        // Limit length
+        if (strlen($cleanContent) > $maxLength) {
+            $cleanContent = substr($cleanContent, 0, $maxLength) . '...';
+        }
+        return $cleanContent;
     }
 
     private function fetchFromGuardian()
@@ -107,7 +118,7 @@ class FetchArticlesCommand extends Command
         foreach ($data['response']['results'] as $item) {
             $articles[] = [
                 'title' => $item['webTitle'] ?? '',
-                'content' => $item['fields']['body'] ?? '',
+                'content' => $this->cleanContent($item['fields']['body'] ?? ''),
                 'source' => 'The Guardian',
                 'category' => $item['sectionName'] ?? 'General',
                 'published_at' => isset($item['webPublicationDate']) ? Carbon::parse($item['webPublicationDate'])->format('Y-m-d H:i:s') : now(),
@@ -131,7 +142,7 @@ class FetchArticlesCommand extends Command
         foreach ($data['results'] as $item) {
             $articles[] = [
                 'title' => $item['title'] ?? '',
-                'content' => $item['abstract'] ?? '',
+                'content' => $this->cleanContent($item['abstract'] ?? ''),
                 'source' => 'NYT',
                 'category' => $item['section'] ?? 'General',
                 'published_at' => isset($item['publishedAt']) ? Carbon::parse($item['publishedAt'])->format('Y-m-d H:i:s') : now(),            ];

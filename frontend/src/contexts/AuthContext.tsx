@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import axios from 'axios'
+import { API_BASE_URL } from '../config/api'
 
 interface User {
   id: number
@@ -41,7 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   // Configure axios defaults
-  axios.defaults.baseURL = 'http://localhost:8000/api'
+  axios.defaults.baseURL = API_BASE_URL
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token')

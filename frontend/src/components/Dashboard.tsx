@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
+import { buildApiUrl } from '../config/api'
 
 const sources = ['Reuters', 'BBC', 'CNN', 'Al Jazeera', 'The Verge']
 const categories = ['Technology', 'Health', 'Business', 'Sports', 'Entertainment']
@@ -29,7 +30,7 @@ const Dashboard: React.FC = () => {
         if (category) params.append('category', category)
         if (date) params.append('date', date)
         params.append('page', String(page))
-        const res = await fetch(`http://localhost:8000/api/articles?${params.toString()}`)
+        const res = await fetch(buildApiUrl(`articles?${params.toString()}`))
         if (!res.ok) throw new Error('Failed to fetch articles')
         const data = await res.json()
         setArticles(data.data)
