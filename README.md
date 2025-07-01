@@ -1,6 +1,6 @@
 # Full-Stack News Aggregator
 
-A complete full-stack application with Laravel backend and React frontend, featuring user authentication and registration.
+A complete full-stack application with Laravel backend and React frontend, The project is to build a news aggregator website that pulls articles from various sources and displays them in a clean, easy-to-read format.
 
 ## Features
 
@@ -83,57 +83,37 @@ Before running this application, make sure you have the following installed:
 - **MySQL 5.7 or higher** (or MariaDB 10.2+)
 - **Git**
 
-## Quick Start
+## Quick Start with Docker
 
-### 1. Clone the repository
+#### 1. Clone and Navigate
 ```bash
 git clone <repository-url>
 cd InnoscriptaTask
 ```
 
-### 2. Backend Setup (Laravel)
-
-Navigate to the backend directory and set up Laravel:
-
+#### 2. Build and Start Containers
 ```bash
-cd backend
+# Build and start all services
+docker-compose up --build
 
-# Install PHP dependencies
-composer install
-
-# Copy environment file
-cp env.example .env
-
-# Generate application key
-php artisan key:generate
-
-# Create MySQL database (if not exists)
-mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS laravel_app;"
-
-# Run migrations to create database tables
-php artisan migrate
-
-# Start the Laravel development server
-php artisan serve
+# Or run in background
+docker-compose up -d --build
 ```
 
-The Laravel backend will be available at: http://localhost:8000
-
-### 3. Frontend Setup (React)
-
-Open a new terminal window and navigate to the frontend directory:
-
+#### 3. Run Database Migrations
 ```bash
-cd frontend
+# Run migrations
+docker-compose exec backend php artisan migrate
 
-# Install Node.js dependencies
-npm install
-
-# Start the React development server
-npm run dev
+# Seed with dummy articles
+docker-compose exec backend php artisan db:seed --class=ArticleSeeder
 ```
 
-The React frontend will be available at: http://localhost:3000
+#### 4. Test Article Fetching
+```bash
+# Test fetching articles from external APIs
+docker-compose exec backend php artisan articles:fetch
+```
 
 ## Development
 
@@ -224,6 +204,16 @@ VITE_API_URL=http://localhost:8000/api
 - `created_at` - Creation timestamp
 - `updated_at` - Last update timestamp
 
+### Articles Table
+- `id` - Primary key (bigint)
+- `title` - Article title (string)
+- `content` - Article content (longText)
+- `source` - Source name (string)
+- `category` - Article category (string)
+- `published_at` - Publication date (timestamp)
+- `created_at` - Creation timestamp
+- `updated_at` - Last update timestamp
+
 ## Authentication Flow
 
 1. **Registration**: User fills out registration form → API creates user and preferences → Returns JWT token
@@ -309,44 +299,6 @@ VITE_API_URL=http://localhost:8000/api
    composer update
    ```
 
-## Production Deployment
-
-### Backend (Laravel)
-```bash
-cd backend
-
-# Set production environment
-APP_ENV=production
-
-# Optimize for production
-composer install --optimize-autoloader --no-dev
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# Use a production web server (Apache/Nginx)
-```
-
-### Frontend (React)
-```bash
-cd frontend
-
-# Build for production
-npm run build
-
-# Serve the built files with a static file server
-npm install -g serve
-serve -s dist -l 3000
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
@@ -393,4 +345,29 @@ This project is open-sourced software licensed under the [MIT license](https://o
 - You can also run the command manually:
   ```bash
   php artisan articles:fetch
-  ``` 
+  ```
+
+## Docker Setup and Commands
+
+### Prerequisites for Docker
+- **Docker** and **Docker Compose** installed on your system
+- **Git** for cloning the repository
+
+### Ports Used
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **MySQL**: localhost:3308
+
+#### Reset Everything
+```bash
+# Stop and remove everything
+docker-compose down --volumes --remove-orphans
+
+# Remove all images
+docker system prune -a
+
+# Start fresh
+docker-compose up --build
+```
+
+--- 
